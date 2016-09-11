@@ -6,27 +6,25 @@
 package interfaz;
 
 import clases.clase;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author liborio
  */
 public class Principal extends javax.swing.JFrame {
-
     /**
      * Creates new form Principal
      */
-    int longi[];
+    int l;
+    String Contraseña;
 
     public Principal() {
         initComponents();
         cmdIngresar.setEnabled(true);
+        cmdTipoS.setEnabled(false);
         cmdMostrar.setEnabled(false);
         cmdCambiar.setEnabled(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +43,7 @@ public class Principal extends javax.swing.JFrame {
         txtMContra = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtDContra = new javax.swing.JPasswordField();
+        cmdTipoS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +53,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Password");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel2.setText("Digite Su Contraseña");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
@@ -64,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdIngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+        jPanel1.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 80, -1));
 
         cmdMostrar.setText("Mostrar");
         cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +71,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdMostrarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+        jPanel1.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
 
         cmdCambiar.setText("Cambiar");
         cmdCambiar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,15 +79,24 @@ public class Principal extends javax.swing.JFrame {
                 cmdCambiarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+        jPanel1.add(cmdCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
 
         txtMContra.setEditable(false);
-        jPanel1.add(txtMContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 130, -1));
+        txtMContra.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jPanel1.add(txtMContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 160, 60));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel3.setText("Contraseña");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
         jPanel1.add(txtDContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 120, -1));
+
+        cmdTipoS.setText("TIpo De Seguridad");
+        cmdTipoS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdTipoSActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdTipoS, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,58 +106,54 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(416, 236));
+        setSize(new java.awt.Dimension(416, 265));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdIngresarActionPerformed
 
-        long Contraseña;
-        clase C1, C2;
-
-        int longi = 8;
-        if (txtDContra.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por Favor Digite Su Contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+        clase C;
+        if (txtDContra.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite Su Contraseña", "Error", JOptionPane.ERROR_MESSAGE);
             txtDContra.requestFocusInWindow();
         } else {
+            Contraseña = txtDContra.getText();
+            l = Contraseña.length();
+            C = new clase(l, Contraseña);
+            JOptionPane.showMessageDialog(this, "Su Contraseña Ha Sido Guardada Correctamente");
 
+            cmdIngresar.setEnabled(false);
+            cmdMostrar.setEnabled(false);
+            cmdCambiar.setEnabled(false);
+            cmdTipoS.setEnabled(true);
+            txtDContra.setEditable(false);
         }
-        Contraseña = Long.parseLong(txtDContra.getText());
-        C1 = new clase(Contraseña);
-        C2 = C1.Contraseña();
-
-        cmdIngresar.setEnabled(false);
-        cmdMostrar.setEnabled(true);
-        cmdCambiar.setEnabled(false);
-        txtDContra.setEditable(false);
-
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
 
-        String aux;
+        String A;
         txtMContra.setText("");
-        aux = txtDContra.getText();
-        txtMContra.setText(aux);
+        A = txtDContra.getText();
+        txtMContra.setText(A);
 
         cmdIngresar.setEnabled(false);
         cmdMostrar.setEnabled(false);
         cmdCambiar.setEnabled(true);
+        cmdTipoS.setEnabled(false);
         txtDContra.requestFocusInWindow();
     }//GEN-LAST:event_cmdMostrarActionPerformed
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
 
-        int op;
-        Long Contraseña = null, Aux;
-        clase C = null;
+        int Oper;
+        Long Contraseña = null;
 
-        op = JOptionPane.showConfirmDialog(this, "¿Seguro Que Desea Cambiar Su Contraseña?", "Pregunta", JOptionPane.YES_NO_OPTION);
-        if (op == JOptionPane.YES_OPTION) {
-            Aux = Contraseña;
+        Oper = JOptionPane.showConfirmDialog(this, "¿Seguro Que Desea Cambiar Su Contraseña?", "Preguntar", JOptionPane.YES_NO_OPTION);
+        if (Oper == JOptionPane.YES_OPTION) {
             txtDContra.setText("");
             txtMContra.setText("");
             txtDContra.requestFocusInWindow();
@@ -161,6 +165,21 @@ public class Principal extends javax.swing.JFrame {
         txtDContra.setEditable(true);
     }//GEN-LAST:event_cmdCambiarActionPerformed
 
+    private void cmdTipoSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTipoSActionPerformed
+
+        String Contra;
+        clase C;
+        Contraseña = txtDContra.getText();
+        l = Contraseña.length();
+        C = new clase(l, Contraseña);
+        Contra = C.Fuerte();
+        txtMContra.setText(Contra);
+
+        cmdIngresar.setEnabled(false);
+        cmdMostrar.setEnabled(true);
+        cmdCambiar.setEnabled(false);
+        cmdTipoS.setEnabled(false);
+    }//GEN-LAST:event_cmdTipoSActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -200,6 +219,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton cmdCambiar;
     private javax.swing.JButton cmdIngresar;
     private javax.swing.JButton cmdMostrar;
+    private javax.swing.JButton cmdTipoS;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

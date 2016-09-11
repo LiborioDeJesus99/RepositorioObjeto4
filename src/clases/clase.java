@@ -11,50 +11,60 @@ package clases;
  */
 public class clase {
 
-    private Long Longitud;
-    private Long Contraseña;
+    private int Longitud;
+    private String Contraseña;
 
-    public clase(Long Longitud, Long Contraseña) {
-        this.Contraseña = Contraseña;
+    public clase() {
+        this.Longitud = 8;
+    }
+
+    public clase(int Longitud, String Contraseña) {
         this.Longitud = Longitud;
-
+        this.Contraseña = Contraseña;
     }
 
-    public clase(long Contraseña) {
-
-    }
-
-    public Long getLongitud() {
+    public int getLongitud() {
         return Longitud;
     }
 
-    public void setLongitud(Long Longitud) {
+    public void setLongitud(int Longitud) {
         this.Longitud = Longitud;
     }
 
-    public Long getContraseña() {
+    public String getContraseña() {
         return Contraseña;
     }
 
-    public void setContraseña(Long Contraseña) {
+    public void setContraseña(String Contraseña) {
         this.Contraseña = Contraseña;
     }
 
-    public clase Contraseña() {
-        Long Contra, Longi;
-        clase c;
-        Longi = this.Longitud;
-        Contra = this.Contraseña;
-        c = new clase(Contra, Longi);
-
-        return c;
+    public String Fuerte() {
+        String F;
+        if (this.Longitud >= 6) {
+            F = "Es Fuerte";
+        } else {
+            F = "Es Debil";
+        }
+        return F;
     }
 
-    public clase Cambiar() {
-        Long camb, n1, contra;
-        clase c = null;
+    public clase mostrar() {
+        clase Contraseña;
+        String Mr;
+        int l;
+        Mr = this.Contraseña;
+        l = this.Longitud;
+        Contraseña = new clase(l, Mr);
+        return Contraseña;
+    }
 
-        return c;
+    public clase CambiarContraseña() {
+        clase N;
+        int l = this.Longitud;
+        String Contraseña = this.Contraseña;
+        N = new clase(l, Contraseña);
+        return N;
 
     }
 }
