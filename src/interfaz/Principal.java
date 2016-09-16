@@ -5,17 +5,20 @@
  */
 package interfaz;
 
-import clases.clase;
+import clases.Password;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author liborio
  */
 public class Principal extends javax.swing.JFrame {
+
     /**
      * Creates new form Principal
      */
     int l;
+    Password c;
     String Contraseña;
 
     public Principal() {
@@ -25,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
         cmdMostrar.setEnabled(false);
         cmdCambiar.setEnabled(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +48,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDContra = new javax.swing.JPasswordField();
         cmdTipoS = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtL = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel2.setText("Digite Su Contraseña");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         cmdIngresar.setText("Ingresar");
         cmdIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +69,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdIngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 80, -1));
+        jPanel1.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 80, -1));
 
         cmdMostrar.setText("Mostrar");
         cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +94,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel3.setText("Contraseña");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
-        jPanel1.add(txtDContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 120, -1));
+        jPanel1.add(txtDContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 130, -1));
 
         cmdTipoS.setText("TIpo De Seguridad");
         cmdTipoS.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +102,12 @@ public class Principal extends javax.swing.JFrame {
                 cmdTipoSActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdTipoS, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        jPanel1.add(cmdTipoS, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jLabel4.setText("Digite Su Longitud");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+        jPanel1.add(txtL, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,79 +117,132 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(416, 265));
+        setSize(new java.awt.Dimension(416, 321));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdIngresarActionPerformed
 
-        clase C;
+        Password C;
         if (txtDContra.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite Su Contraseña", "Error", JOptionPane.ERROR_MESSAGE);
             txtDContra.requestFocusInWindow();
         } else {
             Contraseña = txtDContra.getText();
             l = Contraseña.length();
-            C = new clase(l, Contraseña);
+            C = new Password(l, Contraseña);
             JOptionPane.showMessageDialog(this, "Su Contraseña Ha Sido Guardada Correctamente");
 
-            cmdIngresar.setEnabled(false);
-            cmdMostrar.setEnabled(false);
-            cmdCambiar.setEnabled(false);
-            cmdTipoS.setEnabled(true);
-            txtDContra.setEditable(false);
         }
+        cmdIngresar.setEnabled(false);
+        cmdMostrar.setEnabled(false);
+        cmdCambiar.setEnabled(true);
+        cmdTipoS.setEnabled(true);
+        txtL.setEditable(false);
+        txtDContra.setEditable(false);
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
 
-        String A;
-        txtMContra.setText("");
-        A = txtDContra.getText();
-        txtMContra.setText(A);
-
+        try {
+            Password pass2;
+            int longitud = 8;
+            String pass;
+            pass = txtDContra.getText();
+            pass2 = new Password(longitud, pass);
+            longitud = Integer.parseInt(txtL.getText());
+            pass2.setLongitud(longitud);
+            if (txtDContra.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por Favor No Deje Espacios Vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtDContra.requestFocusInWindow();
+            } else if (longitud != pass.length()) {
+                JOptionPane.showMessageDialog(this, "La Contraseña No Coincide Con La Longitud", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String A;
+                txtMContra.setText("");
+                A = txtDContra.getText();
+                txtMContra.setText(A);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Campos Invalidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtDContra.setText("");
+            txtL.setText("8");
+            txtL.selectAll();
+        }
         cmdIngresar.setEnabled(false);
         cmdMostrar.setEnabled(false);
         cmdCambiar.setEnabled(true);
         cmdTipoS.setEnabled(false);
-        txtDContra.requestFocusInWindow();
     }//GEN-LAST:event_cmdMostrarActionPerformed
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
 
-        int Oper;
-        Long Contraseña = null;
-
-        Oper = JOptionPane.showConfirmDialog(this, "¿Seguro Que Desea Cambiar Su Contraseña?", "Preguntar", JOptionPane.YES_NO_OPTION);
-        if (Oper == JOptionPane.YES_OPTION) {
-            txtDContra.setText("");
-            txtMContra.setText("");
+        Password pass2;
+        int longitud = Integer.parseInt(txtL.getText());
+        String pass;
+        pass = txtDContra.getText();
+        pass2 = new Password(longitud, pass);
+        pass2.setContraseña(pass);
+        if (txtDContra.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por Favor No Deje Espacios Vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
             txtDContra.requestFocusInWindow();
+        } else if (longitud != pass.length()) {
+            JOptionPane.showMessageDialog(this, "La Contraseña No Coincide Con La Longitud", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtDContra.requestFocusInWindow();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por Favor Digite Su Longitud Y Contraseña Nuevamente");
         }
+
+        txtL.setEditable(true);
+        txtDContra.setEditable(true);
+        txtDContra.setText("");
+        txtMContra.setText("");
+        txtL.setText("");
+        txtL.selectAll();
         cmdIngresar.setEnabled(true);
         cmdMostrar.setEnabled(false);
         cmdCambiar.setEnabled(false);
-        txtDContra.setEnabled(true);
-        txtDContra.setEditable(true);
+        cmdTipoS.setEnabled(false);
+        txtL.requestFocusInWindow();
+
+
     }//GEN-LAST:event_cmdCambiarActionPerformed
 
     private void cmdTipoSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTipoSActionPerformed
 
-        String Contra;
-        clase C;
-        Contraseña = txtDContra.getText();
-        l = Contraseña.length();
-        C = new clase(l, Contraseña);
-        Contra = C.Fuerte();
-        txtMContra.setText(Contra);
+        try {
+            Password pass2;
+            int longitud = 8;
+            String pass;
+            pass = txtDContra.getText();
+            pass2 = new Password(longitud, pass);
+            longitud = Integer.parseInt(txtL.getText());
+            pass2.setLongitud(longitud);
+            if (txtDContra.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo vacío. Por favor llénelo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtDContra.requestFocusInWindow();
+            } else if (longitud != pass.length()) {
+                JOptionPane.showMessageDialog(this, "La Contraseña No Coincide Con La Longitud", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (pass2.Fuerte()) {
+                JOptionPane.showMessageDialog(this, "Su Contraseña  Es Fuerte");
+            } else {
+                JOptionPane.showMessageDialog(this, "Su Contraseña Es Debil");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Campos Invalidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtDContra.setText("");
+            txtL.setText("8");
+            txtL.selectAll();
 
+        }
         cmdIngresar.setEnabled(false);
         cmdMostrar.setEnabled(true);
-        cmdCambiar.setEnabled(false);
+        cmdCambiar.setEnabled(true);
         cmdTipoS.setEnabled(false);
+
     }//GEN-LAST:event_cmdTipoSActionPerformed
     /**
      * @param args the command line arguments
@@ -223,8 +287,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtDContra;
+    private javax.swing.JTextField txtL;
     private javax.swing.JTextField txtMContra;
     // End of variables declaration//GEN-END:variables
+
+    private void txtMContra(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

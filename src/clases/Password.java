@@ -9,16 +9,16 @@ package clases;
  *
  * @author liborio
  */
-public class clase {
+public class Password {
 
     private int Longitud;
     private String Contraseña;
 
-    public clase() {
+    public Password() {
         this.Longitud = 8;
     }
 
-    public clase(int Longitud, String Contraseña) {
+    public Password(int Longitud, String Contraseña) {
         this.Longitud = Longitud;
         this.Contraseña = Contraseña;
     }
@@ -39,31 +39,30 @@ public class clase {
         this.Contraseña = Contraseña;
     }
 
-    public String Fuerte() {
-        String F;
-        if (this.Longitud >= 6) {
-            F = "Es Fuerte";
-        } else {
-            F = "Es Debil";
+    public boolean Fuerte(){
+        boolean sw = true;
+        if (this.Longitud < 6) {
+            sw = false;
         }
-        return F;
+        return sw;
     }
+    
 
-    public clase mostrar() {
-        clase Contraseña;
+    public Password mostrar() {
+        Password Contraseña;
         String Mr;
         int l;
         Mr = this.Contraseña;
         l = this.Longitud;
-        Contraseña = new clase(l, Mr);
+        Contraseña = new Password(l, Mr);
         return Contraseña;
     }
 
-    public clase CambiarContraseña() {
-        clase N;
+    public Password CambiarContraseña() {
+        Password N;
         int l = this.Longitud;
         String Contraseña = this.Contraseña;
-        N = new clase(l, Contraseña);
+        N = new Password(l, Contraseña);
         return N;
 
     }
